@@ -1,0 +1,24 @@
+-- USER SQL
+CREATE USER usuario IDENTIFIED BY "usuario"  ;
+
+-- QUOTAS
+
+-- ROLES
+GRANT "CONNECT" TO usuario;
+GRANT "RESOURCE" TO usuario;
+
+-- SYSTEM PRIVILEGES
+
+CREATE TABLESPACE dwh_tablespace 
+            DATAFILE 'datosDWH.dbf' SIZE 250M 
+            EXTENT MANAGEMENT LOCAL
+            SEGMENT SPACE MANAGEMENT AUTO;
+
+ALTER USER usuario 
+	DEFAULT TABLESPACE dwh_tablespace 
+	TEMPORARY TABLESPACE temp 
+	QUOTA UNLIMITED ON dwh_tablespace 
+	QUOTA UNLIMITED ON users; 
+
+GRANT UNLIMITED TABLESPACE TO usuario;
+
